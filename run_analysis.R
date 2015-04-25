@@ -1,5 +1,11 @@
-# Getting and Cleaning Data
-# Course Project
+#!/usr/bin/Rscript
+##################################################
+## R script that executes the script that solves
+## the Coursera's Getting and Cleaning Data 
+## Course Project.
+##
+## Author: Antonio Adsuar
+###################################################
 
 ############################
 # Cleaning the environment #

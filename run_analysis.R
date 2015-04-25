@@ -123,7 +123,7 @@ tidy_data <- ddply(data,c("activity","subject"), numcolwise(mean))
 
 print("Final Task: Write the result into a file.")
 
-write.table(tidy_data,file = "tidy_data.txt")
+write.table(tidy_data,file = "tidy_data.txt", row.names=F)
 
 #print(dim(data.x.train))
 #print(dim(data.y.train))

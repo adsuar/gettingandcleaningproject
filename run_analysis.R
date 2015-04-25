@@ -58,3 +58,27 @@ names(data.subject) <- "Subject"
 print("Phase 1.3: Create one single data set from x, y and subject resources")
 data <- cbind(data.x, data.y, data.subject)
 
+##############################################################################
+# Task 2 - Extracts only the measurements on the mean and standard deviation #
+#          for each measurement.                                             #
+##############################################################################
+
+print("Phase 2: Extracts ony the measurements on the mean and standard deviation for each measurement")
+
+useful_columns <- grep("[Mm]ean|std|Activity|Subject",colnames(data))
+data <- data[,useful_columns]
+
+#print(dim(data.x.train))
+#print(dim(data.y.train))
+#print(dim(data.subject.train))
+#print(dim(data.x.test))
+#print(dim(data.y.test))
+#print(dim(data.subject.test))
+
+#print(dim(data.x))
+#print(dim(data.y))
+#print(dim(data.subject))
+
+#print(dim(features))
+
+#print(dim(data))

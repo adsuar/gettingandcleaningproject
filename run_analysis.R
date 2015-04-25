@@ -106,6 +106,8 @@ colnames(data) <- gsub("-Z","OnZAxis",colnames(data))
 colnames(data) <- gsub("-","",colnames(data))
 colnames(data) <- gsub("\\(\\)","",colnames(data))
 
+# By default, I use Camel Case form, but since I'm not sure if it can
+# be applied, I change everything to lowercase.
 colnames(data) <- tolower(colnames(data))
 
 ##############################################################################
@@ -124,18 +126,3 @@ tidy_data <- ddply(data,c("activity","subject"), numcolwise(mean))
 print("Final Task: Write the result into a file.")
 
 write.table(tidy_data,file = "tidy_data.txt", row.names=F)
-
-#print(dim(data.x.train))
-#print(dim(data.y.train))
-#print(dim(data.subject.train))
-#print(dim(data.x.test))
-#print(dim(data.y.test))
-#print(dim(data.subject.test))
-
-#print(dim(data.x))
-#print(dim(data.y))
-#print(dim(data.subject))
-
-#print(dim(features))
-
-#print(dim(data))

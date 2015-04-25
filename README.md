@@ -21,8 +21,8 @@ The execution of the script is really simple. Since there was no requirement abo
 
 The execution has to be done as follows:
 ```sh
-> cd REPOSITORY_PATH
-> Rscript run_analysis.R
+$ cd REPOSITORY_PATH
+$ Rscript run_analysis.R
 ```
 
 Automatically, the script will perform the required tasks.

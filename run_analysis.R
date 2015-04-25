@@ -69,7 +69,7 @@ data <- cbind(data.x, data.y, data.subject)
 
 print("Phase 2: Extracts ony the measurements on the mean and standard deviation for each measurement")
 
-useful_columns <- grep("[Mm]ean|std|Activity|Subject",colnames(data))
+useful_columns <- grepl("mean\\(\\)|std\\(\\)|Activity|Subject",colnames(data))
 data <- data[,useful_columns]
 
 ###############################################################################
@@ -84,6 +84,28 @@ data[,"Activity"] <- activities[data[,"Activity"],2]
 
 # Another option is to use mapvalues
 #data[,"Activity"] <- mapvalues(as.character(data[,"Activity"]), from=as.character(activities[,1]), to=as.character(activities[,2]))
+
+##############################################################################
+# Task 4: Appropriately labels the data set with descriptive variable names. #
+##############################################################################
+
+print("Phase 4: Appropriately labels the data set with descriptive variable names.")
+
+# Substitution of the non-descriptive portions of the variable names
+colnames(data) <- gsub("^t","time",colnames(data))
+colnames(data) <- gsub("^f","frequency",colnames(data))
+colnames(data) <- gsub("Acc","Accelerometer",colnames(data))
+colnames(data) <- gsub("Gyro","Gyroscope",colnames(data))
+colnames(data) <- gsub("BodyBody","Body",colnames(data))
+colnames(data) <- gsub("Mag","Magnitude",colnames(data))
+colnames(data) <- gsub("std","StandardDevitation",colnames(data))
+colnames(data) <- gsub("-x","OnXAxis",colnames(data))
+colnames(data) <- gsub("-y","OnYAxis",colnames(data))
+colnames(data) <- gsub("-z","OnZAxis",colnames(data))
+colnames(data) <- gsub("-","",colnames(data))
+colnames(data) <- gsub("\\(\\)","",colnames(data))
+
+colnames(data) <- tolower(colnames(data))
 
 #print(dim(data.x.train))
 #print(dim(data.y.train))

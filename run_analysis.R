@@ -108,6 +108,23 @@ colnames(data) <- gsub("\\(\\)","",colnames(data))
 
 colnames(data) <- tolower(colnames(data))
 
+##############################################################################
+# Task 5: Create a second independent tidy data set with the average of each #
+#         variable for each activity and each subject.                       #
+##############################################################################
+
+print("Phase 5: Create a second independent tidy data set with the average of each variable for each activity and each subject.")
+
+tidy_data <- ddply(data,c("activity","subject"), numcolwise(mean))
+
+# ###########################################
+# Final Task: Write the result into a file. #
+# ###########################################
+
+print("Final Task: Write the result into a file.")
+
+write.table(tidy_data,file = "tidy_data.txt")
+
 #print(dim(data.x.train))
 #print(dim(data.y.train))
 #print(dim(data.subject.train))

@@ -92,6 +92,7 @@ data[,"Activity"] <- activities[data[,"Activity"],2]
 print("Phase 4: Appropriately labels the data set with descriptive variable names.")
 
 # Substitution of the non-descriptive portions of the variable names
+# The new description is extracted from features_info.txt
 colnames(data) <- gsub("^t","time",colnames(data))
 colnames(data) <- gsub("^f","frequency",colnames(data))
 colnames(data) <- gsub("Acc","Accelerometer",colnames(data))
@@ -99,9 +100,9 @@ colnames(data) <- gsub("Gyro","Gyroscope",colnames(data))
 colnames(data) <- gsub("BodyBody","Body",colnames(data))
 colnames(data) <- gsub("Mag","Magnitude",colnames(data))
 colnames(data) <- gsub("std","StandardDevitation",colnames(data))
-colnames(data) <- gsub("-x","OnXAxis",colnames(data))
-colnames(data) <- gsub("-y","OnYAxis",colnames(data))
-colnames(data) <- gsub("-z","OnZAxis",colnames(data))
+colnames(data) <- gsub("-X","OnXAxis",colnames(data))
+colnames(data) <- gsub("-Y","OnYAxis",colnames(data))
+colnames(data) <- gsub("-Z","OnZAxis",colnames(data))
 colnames(data) <- gsub("-","",colnames(data))
 colnames(data) <- gsub("\\(\\)","",colnames(data))
 

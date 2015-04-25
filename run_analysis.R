@@ -114,7 +114,7 @@ colnames(data) <- gsub("-Z","OnZAxis",colnames(data))
 colnames(data) <- gsub("-","",colnames(data))
 colnames(data) <- gsub("\\(\\)","",colnames(data))
 
-# By default, I use Camel Case form, but since I'm not sure if it can
+# By default, I use the CamelCase form, but since I'm not sure if it can
 # be applied, I change everything to lowercase.
 colnames(data) <- tolower(colnames(data))
 

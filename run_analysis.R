@@ -11,7 +11,7 @@ system("clear")
 # Loading libraries #
 #####################
 # The library is loaded in silent mode
-suppressMessages(library(dplyr))
+suppressMessages(library(plyr))
 
 #######################
 # Variable definition #
@@ -30,6 +30,8 @@ file.subject.test <- paste(baseFolder,"test","subject_test.txt",sep="/")
 
 feature.names <- paste(baseFolder,"features.txt", sep="/")
 
+activity.labels <- paste(baseFolder, "activity_labels.txt", sep="/")
+
 #########################################################################
 # Task 1 - Merge the training and the test sets to create one data set. #
 #########################################################################
@@ -45,6 +47,8 @@ data.y.test <- read.table(file.y.test)
 data.subject.test <- read.table(file.subject.test)
 
 features <- read.table(feature.names)
+
+activities <- read.table(activity.labels)
 
 print("Phase 1.2: Merging training and testing data sets into one single object")
 data.x <- rbind(data.x.train, data.x.test)
@@ -67,6 +71,19 @@ print("Phase 2: Extracts ony the measurements on the mean and standard deviation
 
 useful_columns <- grep("[Mm]ean|std|Activity|Subject",colnames(data))
 data <- data[,useful_columns]
+
+###############################################################################
+# Task 3: Uses descriptive acctivity names to name the activities in the data #
+#         set                                                                 #
+###############################################################################
+
+print("Phase 3: Uses desriptive activity names to name the activities in the data set")
+
+# I substitute the numeric activity value by its corresponding activity label
+data[,"Activity"] <- activities[data[,"Activity"],2]
+
+# Another option is to use mapvalues
+#data[,"Activity"] <- mapvalues(as.character(data[,"Activity"]), from=as.character(activities[,1]), to=as.character(activities[,2]))
 
 #print(dim(data.x.train))
 #print(dim(data.y.train))

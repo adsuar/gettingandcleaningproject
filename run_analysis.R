@@ -19,6 +19,10 @@ suppressMessages(library(plyr))
 
 print("Phase 0: Configuration of the Environment")
 
+# I assume that the data folder has not been renamed and it's in
+# the current working directory.
+# The use of sep="/" helps me to not to pay attention to the linking
+# of the different portions of the path.
 baseFolder <- paste(getwd(),"UCI HAR Dataset", sep="/")
 
 file.x.train <- paste(baseFolder,"train","X_train.txt",sep="/")
@@ -51,6 +55,7 @@ features <- read.table(feature.names)
 activities <- read.table(activity.labels)
 
 print("Phase 1.2: Merging training and testing data sets into one single object")
+# The order has to be preserved. Always test after train.
 data.x <- rbind(data.x.train, data.x.test)
 data.y <- rbind(data.y.train, data.y.test)
 data.subject <- rbind(data.subject.train, data.subject.test)
@@ -60,6 +65,7 @@ names(data.y) <- "Activity"
 names(data.subject) <- "Subject"
 
 print("Phase 1.3: Create one single data set from x, y and subject resources")
+# The two new columns are added at the end of the object.
 data <- cbind(data.x, data.y, data.subject)
 
 ##############################################################################
@@ -69,6 +75,7 @@ data <- cbind(data.x, data.y, data.subject)
 
 print("Phase 2: Extracts ony the measurements on the mean and standard deviation for each measurement")
 
+# With grepl I get which columns match any of the expressions
 useful_columns <- grepl("mean\\(\\)|std\\(\\)|Activity|Subject",colnames(data))
 data <- data[,useful_columns]
 
@@ -92,7 +99,8 @@ data[,"Activity"] <- activities[data[,"Activity"],2]
 print("Phase 4: Appropriately labels the data set with descriptive variable names.")
 
 # Substitution of the non-descriptive portions of the variable names
-# The new description is extracted from features_info.txt
+# The new description is created taking as a reference the information
+# provided at features_info.txt
 colnames(data) <- gsub("^t","time",colnames(data))
 colnames(data) <- gsub("^f","frequency",colnames(data))
 colnames(data) <- gsub("Acc","Accelerometer",colnames(data))
@@ -117,6 +125,7 @@ colnames(data) <- tolower(colnames(data))
 
 print("Phase 5: Create a second independent tidy data set with the average of each variable for each activity and each subject.")
 
+# We first group by activity and subject and then apply the mean function.
 tidy_data <- ddply(data,c("activity","subject"), numcolwise(mean))
 
 # ###########################################
@@ -125,4 +134,6 @@ tidy_data <- ddply(data,c("activity","subject"), numcolwise(mean))
 
 print("Final Task: Write the result into a file.")
 
+# It's important to add the row.names=F option, or you will get an
+# additional column with the row number.
 write.table(tidy_data,file = "tidy_data.txt", row.names=F)
